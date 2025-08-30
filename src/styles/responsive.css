@@ -1,0 +1,158 @@
+/* Responsive CSS for React LMS */
+
+/* Global responsive variables */
+:root {
+  --sidebar-width: 250px;
+  --sidebar-width-tablet: 200px;
+  --topbar-height: 64px;
+  --primary-color: orange;
+  --hover-bg: #ffe5cc;
+  --text-color: #555;
+  --border-color: #eee;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  /* Sidebar styles */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    width: 250px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+  }
+
+  .sidebar-overlay.show {
+    display: block;
+  }
+
+  /* Main content styles */
+  .main-content {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Navbar/Topbar styles */
+  .navbar, .topbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .search-input {
+    width: 150px;
+  }
+
+  /* General padding adjustments */
+  .page-content {
+    padding: 1rem;
+  }
+
+  /* Mobile menu button */
+  .mobile-menu-toggle {
+    display: flex !important;
+  }
+
+  /* Hidden elements on mobile */
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  /* Simplified navbar for mobile */
+  .navbar-user-info {
+    gap: 0.3rem;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+  /* Sidebar styles */
+  .sidebar {
+    width: var(--sidebar-width-tablet);
+  }
+
+  /* Main content styles */
+  .main-content {
+    margin-left: var(--sidebar-width-tablet);
+    max-width: calc(100% - var(--sidebar-width-tablet));
+  }
+
+  /* Navbar adjustments */
+  .navbar-links {
+    gap: 1rem;
+  }
+
+  .search-input {
+    width: 200px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+  .search-input {
+    width: 250px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 993px) {
+  /* Default desktop styles remain the same */
+}
+
+/* Utility classes */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile menu toggle button */
+.mobile-menu-toggle {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+  padding: 0.5rem;
+}
+
+/* Responsive grid system */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}

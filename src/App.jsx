@@ -22,12 +22,30 @@ import Settings from './pages/Settings';
 import './App.css';
 
 const App = () => {
+  // State for responsive sidebar toggle
+  const [sidebarOpen, setSidebarOpen] = React.useState(window.innerWidth > 768);
+  
+  // Toggle sidebar function
+  const toggleSidebar = () => {
+    setSidebarOpen(prev => !prev);
+  };
+
+  // Listen for window resize to auto-adjust sidebar on desktop
+  React.useEffect(() => {
+    const handleResize = () => {
+      setSidebarOpen(window.innerWidth > 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Layout component for pages that need Sidebar and Topbar
   const DashboardLayout = ({ children }) => (
     <div className="dashboard-layout">
-      <Sidebar />
+      <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="main-content">
-        <Topbar />
+        <Topbar toggleSidebar={toggleSidebar} />
         <div className="page-content">
           {children}
         </div>

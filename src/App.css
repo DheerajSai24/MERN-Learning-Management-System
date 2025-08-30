@@ -8,6 +8,7 @@
   display: flex;
   min-height: 100vh;
   width: 100%;
+  position: relative;
 }
 
 .main-content {
@@ -17,6 +18,7 @@
   flex-direction: column;
   min-height: 100vh;
   max-width: calc(100% - 250px);
+  transition: margin-left 0.3s ease, max-width 0.3s ease;
 }
 
 .page-content {
@@ -26,4 +28,20 @@
   overflow-y: auto;
   height: calc(100vh - 64px); /* Height of topbar */
   position: relative;
+}
+
+/* Import responsive styles */
+@import url('./styles/responsive.css');
+@import url('./styles/grid.css');
+
+/* Basic responsive adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .page-content {
+    padding: 15px;
+  }
 }
