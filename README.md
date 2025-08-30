@@ -2,7 +2,29 @@
 
 A modern, responsive Learning Management System built with React and Node.js. This system provides a comprehensive platform for managing courses, assignments, and student progress.
 
-## 🔑 Authentication (Clerk)
+## � Deployment to GitHub Pages
+
+This project is configured for deployment to GitHub Pages using GitHub Actions.
+
+### Manual Deployment Steps
+1. Make sure your changes are committed and pushed to the main branch
+2. Run the deployment command:
+   ```bash
+   npm run deploy
+   ```
+3. Your site will be deployed to: https://dheerajsai24.github.io/MERN-Learning-Management-System/
+
+### Automatic Deployment
+The project is configured with GitHub Actions. When you push to the main branch, it will automatically:
+1. Build the project
+2. Deploy to GitHub Pages
+
+### Deployment Configuration
+- The base URL is set in `vite.config.js` with `base: "/MERN-Learning-Management-System/"`
+- HashRouter is used in `App.jsx` for proper routing in GitHub Pages
+- GitHub Actions workflow is in `.github/workflows/deploy.yml`
+
+## �🔑 Authentication (Clerk)
 
 This LMS uses [Clerk](https://clerk.com/) for secure user authentication. Users must sign in to access dashboard features. Clerk handles sign-in, sign-up, and user profile management.
 
@@ -230,7 +252,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 1. **Clone the repository from GitHub**
   ```bash
-  git clone https://github.com/dheerajsai24/mern-learning-management-system.git
+  git clone https://github.com/dheerajsai24/MERN-Learning-Management-System.git
   cd mern-learning-management-system
   ```
 
