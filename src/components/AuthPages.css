@@ -1,0 +1,37 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding: 20px;
+}
+
+.auth-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+/* Make Clerk components center-aligned */
+:root {
+  --clerk-primary: orange;
+  --clerk-primary-hover: #ff9800;
+}
+
+/* Add responsive styles */
+@media (max-width: 600px) {
+  .auth-card {
+    padding: 1.5rem;
+  }
+}

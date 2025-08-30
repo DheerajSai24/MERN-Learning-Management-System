@@ -1,0 +1,280 @@
+.dashboard {
+  padding: 2rem;
+  width: 100%;
+}
+
+.dashboard-header {
+  margin-bottom: 2.5rem;
+}
+
+.greeting h1 {
+  font-size: 2.2rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.date {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+}
+
+/* Recent Course Card */
+.course-content h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.course-content p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.progress {
+  height: 100%;
+  background: orange;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Resources Card */
+.resources-list {
+  list-style: none;
+  padding: 0;
+}
+
+.resources-list li {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.resources-list li:last-child {
+  border-bottom: none;
+}
+
+.resource-icon {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+/* Hours Spent Chart */
+.chart-placeholder {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 150px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.bar {
+  width: 30px;
+  background: orange;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease;
+}
+
+/* Performance Score Card */
+.score-circle {
+  text-align: center;
+}
+
+.circular-chart {
+  width: 150px;
+  height: 150px;
+}
+
+.circular-chart .percentage {
+  fill: var(--text-primary);
+  font-size: 0.5em;
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+/* Todo List */
+.tasks {
+  list-style: none;
+  padding: 0;
+}
+
+.task-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-info h4 {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.task-info p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.task-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.due-date {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+.status.pending {
+  background: #fff3e0;
+  color: #ff8f00;
+}
+
+.status.in-progress {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status.completed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* Recent Classes */
+.classes-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.class-card {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.class-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.class-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.continue-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: orange;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.continue-btn:hover {
+  background: #ff8c00;
+}
+
+/* Announcements */
+.announcements-list {
+  list-style: none;
+  padding: 0;
+}
+
+.announcements-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.announcements-list li:last-child {
+  border-bottom: none;
+}
+
+.announcement-time {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.announcements-list p {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .greeting h1 {
+    font-size: 1.8rem;
+  }
+
+  .card {
+    padding: 1.2rem;
+  }
+}

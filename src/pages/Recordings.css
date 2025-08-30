@@ -1,0 +1,533 @@
+.recordings-container {
+  padding: 2rem;
+  background-color: #fff;
+}
+
+.recordings-header {
+  margin-bottom: 2rem;
+}
+
+.recordings-header h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.recordings-header p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.recordings-header .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recordings-tabs {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.tab {
+  padding: 0.5rem 0;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.tab:hover {
+  color: #007bff;
+}
+
+.tab.active {
+  color: #007bff;
+  font-weight: 500;
+  border-bottom: 2px solid #007bff;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.submit-btn,
+.cancel-btn,
+.confirm-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.action-btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  margin: 0;
+  text-decoration: none;
+}
+
+.watch-btn {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.watch-btn:hover {
+  background-color: #0056b3;
+}
+
+.download-btn {
+  background-color: #28a745;
+  color: #ffffff;
+  height: 40px;
+  line-height: 24px;
+}
+
+.download-btn:hover {
+  background-color: #218838;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.remove-btn:hover {
+  background-color: #c82333;
+}
+
+.confirm-btn {
+  background-color: #dc3545;
+  color: white;
+  flex: 2;
+}
+
+.confirm-btn:hover {
+  background-color: #c82333;
+}
+
+.modal-content {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.modal-content p {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab.active {
+  color: #ff6b00;
+  font-weight: 500;
+}
+
+.recording-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 16px;
+  width: 100%;
+  flex-direction: row;
+  white-space: nowrap;
+  min-height: 40px;
+}
+
+.add-recording-btn {
+  background-color: #4CAF50;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-recording-btn i {
+  color: #FFFFFF;
+  font-size: 1.1rem;
+}
+
+.add-recording-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.add-recording-btn:hover {
+  background-color: #45a049;
+}
+
+.add-recording-btn i {
+  font-size: 1rem;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff6b00;
+}
+
+.recordings-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.search-bar {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.filter-dropdowns {
+  display: flex;
+  gap: 1rem;
+}
+
+.filter-dropdowns select {
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+  min-width: 150px;
+}
+
+.recordings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.recording-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  padding-bottom: 16px;
+}
+
+.recording-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.recording-thumbnail {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.recording-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recording-info {
+  padding: 1rem;
+}
+
+.recording-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.recording-info p {
+  margin: 0.25rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.recording-actions {
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.recording-actions button {
+  flex: 1;
+  min-width: 100px;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.play-btn {
+  background-color: #ff6b00;
+  color: white;
+}
+
+.play-btn:hover {
+  background-color: #ff5500;
+}
+
+.download-btn {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.download-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.recordings-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.recordings-pagination button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #666;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.recordings-pagination button.active {
+  background-color: #ff6b00;
+  color: white;
+  border-color: #ff6b00;
+}
+
+.recordings-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.video-modal {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0.5rem;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.video-container {
+  position: relative;
+  padding-top: 56.25%;
+  width: 100%;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-info {
+  padding: 1.5rem;
+}
+
+.video-description {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.video-meta {
+  display: flex;
+  gap: 1rem;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+/* Form styles */
+.form-group {
+  margin-bottom: 1.5rem;
+  padding: 0 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.submit-btn,
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn {
+  background-color: #ff6b00;
+  color: white;
+  flex: 2;
+}
+
+.submit-btn:hover {
+  background-color: #ff5500;
+}
+
+.cancel-btn {
+  background-color: #f5f5f5;
+  color: #333;
+  flex: 1;
+}
+
+.cancel-btn:hover {
+  background-color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .recordings-container {
+    padding: 1rem;
+  }
+
+  .recordings-filters {
+    flex-direction: column;
+  }
+
+  .filter-dropdowns {
+    width: 100%;
+  }
+
+  .filter-dropdowns select {
+    flex: 1;
+  }
+
+  .recordings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    width: 95%;
+    margin: 1rem;
+  }
+
+  .video-modal {
+    width: 95%;
+    margin: 1rem;
+  }
+}
