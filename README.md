@@ -1,7 +1,5 @@
 # 🎓 MERN Learning Management System
 
-![LMS Banner](https://placehold.co/1200x400/5c6bc0/ffffff?text=MERN+Learning+Management+System&font=montserrat)
-
 <div align="center">
   
 [![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
@@ -20,8 +18,7 @@
 - [✨ Features](#-features)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [📊 System Architecture](#-system-architecture)
-- [🖼️ Screenshots](#️-screenshots)
-- [🚀 Getting Started](#-getting-started-1)
+- [ Getting Started](#-getting-started-1)
 - [👥 User Roles & Permissions](#-user-roles--permissions)
 - [📱 Responsive Design](#-responsive-design)
 - [🔒 Security Features](#-security-features)
@@ -96,8 +93,6 @@ Experience the application live: [MERN Learning Management System](https://dheer
 ## 📊 System Architecture
 
 The MERN Learning Management System follows a robust three-tier architecture:
-
-![System Architecture](https://placehold.co/1200x600/f6f9fc/5c6bc0?text=LMS+System+Architecture&font=montserrat)
 
 ### Database Schema
 
@@ -314,15 +309,6 @@ This will create sample users, courses, assignments, and other data for testing.
 ## 📱 User Interface
 
 The LMS features a clean, intuitive interface designed for optimal user experience across all devices.
-
-### Dashboard View
-![Dashboard](https://placehold.co/1200x600/f6f9fc/5c6bc0?text=Dashboard+Screenshot&font=montserrat)
-
-### Course Page
-![Course Page](https://placehold.co/1200x600/f6f9fc/5c6bc0?text=Course+Page+Screenshot&font=montserrat)
-
-### Assignment Submission
-![Assignment Submission](https://placehold.co/1200x600/f6f9fc/5c6bc0?text=Assignment+Submission+Screenshot&font=montserrat)
 
 ## 🔑 Authentication (Clerk)
 
