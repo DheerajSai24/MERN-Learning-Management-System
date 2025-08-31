@@ -1,0 +1,197 @@
+.assignments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Remove orphaned and duplicate blocks above */
+
+.course-name {
+  color: #5c6bc0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Card Footer - Desktop */
+.card-footer {
+  padding: 1.25rem;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: flex-end;
+  background: #fafbfd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Status badges */
+/* Status badges - Desktop */
+.status-badge {
+  padding: 0.5rem 0.875rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.status-badge::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-badge.done {
+  background: rgba(76, 175, 80, 0.1);
+  color: #2e7d32;
+}
+
+.status-badge.done::before {
+  background: #2e7d32;
+}
+
+.status-badge.in-progress {
+  background: rgba(33, 150, 243, 0.1);
+  color: #1976d2;
+}
+
+.status-badge.in-progress::before {
+  background: #1976d2;
+}
+
+.status-badge.pending {
+  background: rgba(255, 152, 0, 0.1);
+  color: #f57c00;
+}
+
+.status-badge.pending::before {
+  background: #f57c00;
+}
+
+.due-date {
+  font-size: 0.85rem;
+  color: #757575;
+}
+
+/* Submit button styling */
+/* Submit button - Desktop */
+.submit-btn {
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #5c6bc0, #3949ab);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 10px rgba(92,107,192,0.2);
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #3949ab, #283593);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(92,107,192,0.3);
+}
+
+.submitted-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #388e3c;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.submitted-status i {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .assignments-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    padding: 0 0.5rem;
+    gap: 1.25rem;
+  }
+  
+  .card-header {
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .card-content {
+    padding: 1.25rem;
+  }
+  
+  .card-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .card-footer {
+    padding: 1rem;
+    justify-content: center;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .assignments-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+    gap: 1rem;
+  }
+  .assignment-card {
+    border-radius: 10px;
+    margin: 0 0.25rem;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+  }
+  .card-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+  }
+  .card-content {
+    padding: 1rem 0.5rem;
+  }
+  .card-content h3 {
+    font-size: 1rem;
+  }
+  .card-footer {
+    padding: 0.75rem 0.5rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .submit-btn {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+  .status-badge {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}

@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Assignments.css';
+import './AssignmentCards.css';
+import './SubmitModal.css';
 
+// Mock assignment data
 const assignments = [
   {
+    id: 1,
     title: 'Conducting User Research',
     course: 'User Research and Personas',
     dueDate: 'July 1, 2024',
@@ -10,6 +15,7 @@ const assignments = [
     submitted: true
   },
   {
+    id: 2,
     title: 'Competitive Analysis',
     course: 'Competitive Analysis in UX',
     dueDate: 'July 25, 2024',
@@ -17,6 +23,7 @@ const assignments = [
     submitted: false
   },
   {
+    id: 3,
     title: 'Creating Wireframes',
     course: 'Wireframing and Prototyping',
     dueDate: 'Aug 1, 2024',
@@ -24,6 +31,7 @@ const assignments = [
     submitted: false
   },
   {
+    id: 4,
     title: 'User Interface Design',
     course: 'UI Design Fundamentals',
     dueDate: 'Aug 10, 2024',
@@ -31,28 +39,42 @@ const assignments = [
     submitted: false
   },
   {
-    title: 'Design System Creation',
-    course: 'Design Systems',
+    id: 5,
+    title: 'Usability Testing',
+    course: 'User Testing Methods',
     dueDate: 'Aug 15, 2024',
+    status: 'Pending',
+    submitted: false
+  },
+  {
+    id: 6,
+    title: 'Design System Implementation',
+    course: 'Design Systems',
+    dueDate: 'Aug 30, 2024',
     status: 'Pending',
     submitted: false
   }
 ];
 
-const courses = [
+// Course list for the filter dropdown
+const coursesList = [
   'All Courses',
-  'User Research and Personas',
-  'Competitive Analysis in UX',
+  'User Research and Personas', 
+  'Competitive Analysis in UX', 
   'Wireframing and Prototyping',
+  'User Testing Methods',
   'UI Design Fundamentals',
   'Design Systems'
 ];
 
 const Assignments = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedStatus, setSelectedStatus] = useState('All Status');
   const [selectedCourse, setSelectedCourse] = useState('All Courses');
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
   const assignmentsPerPage = 4;
 
   // Calculate statistics
@@ -83,203 +105,156 @@ const Assignments = () => {
   const totalPages = Math.ceil(filteredAssignments.length / assignmentsPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  
+  // Handle clicking on an assignment card
+  const handleAssignmentClick = (assignment) => {
+    navigate(`/assignments/${assignment.id}`);
+  };
+  
+  // Handle clicking on the submit button
+  const handleSubmitClick = (e, assignment) => {
+    e.stopPropagation(); // Prevent triggering the parent onClick
+    setSelectedAssignment(assignment);
+    setIsSubmitModalOpen(true);
+  };
+  
+  // Function to handle "New Assignment" button click
+  const handleNewAssignment = () => {
+    navigate('/assignments/create');
+  };
 
   return (
     <div className="assignments-page">
-      {/* Header Section - Full Width */}
+      {/* Header Section */}
       <div className="assignments-header">
         <div className="header-content">
           <h1>Assignments</h1>
           <p>View and manage your course assignments</p>
         </div>
         <div className="header-actions">
-          <button className="new-assignment-btn">
+          <button 
+            className="new-assignment-btn"
+            onClick={handleNewAssignment}
+          >
             <i className="fas fa-plus"></i>
             New Assignment
           </button>
         </div>
       </div>
 
+      {/* Stats Cards - Moved outside the grid for better mobile experience */}
+      <div className="stats-cards-wrapper">
+        <div className="stats-cards">
+          <div className="stat-card">
+            <div className="stat-icon pending">
+              <i className="fas fa-clock"></i>
+            </div>
+            <div className="stat-info">
+              <h4>Pending</h4>
+              <span className="stat-number">{stats.Pending || 0}</span>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon in-progress">
+              <i className="fas fa-spinner"></i>
+            </div>
+            <div className="stat-info">
+              <h4>In Progress</h4>
+              <span className="stat-number">{stats['In Progress'] || 0}</span>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon done">
+              <i className="fas fa-check"></i>
+            </div>
+            <div className="stat-info">
+              <h4>Completed</h4>
+              <span className="stat-number">{stats.Done || 0}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <div className="assignments-container">
         {/* Left Column */}
         <div className="assignments-left">
-          {/* Stats Cards */}
-          <div className="stats-cards">
-            <div className="stat-card">
-              <div className="stat-icon pending">
-                <i className="fas fa-clock"></i>
-              </div>
-              <div className="stat-info">
-                <h4>Pending</h4>
-                <span className="stat-number">{stats.Pending || 0}</span>
-              </div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon in-progress">
-                <i className="fas fa-spinner"></i>
-              </div>
-              <div className="stat-info">
-                <h4>In Progress</h4>
-                <span className="stat-number">{stats['In Progress'] || 0}</span>
-              </div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon done">
-                <i className="fas fa-check"></i>
-              </div>
-              <div className="stat-info">
-                <h4>Completed</h4>
-                <span className="stat-number">{stats.Done || 0}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Filters & Search Section */}
-          <div className="filters-section">
-            <div className="search-bar">
-              <i className="fas fa-search search-icon"></i>
-              <input 
-                type="text" 
-                placeholder="Search assignments..." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <div className="filters">
+          {/* Filters */}
+          <div className="filters-container">
+            <h3>Filters</h3>
+            <div className="filter-row">
               <select 
-                value={selectedCourse}
-                onChange={(e) => setSelectedCourse(e.target.value)}
-              >
-                {courses.map(course => (
-                  <option key={course} value={course}>{course}</option>
-                ))}
-              </select>
-              <select
                 value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value)}
+                onChange={(e) => {
+                  setSelectedStatus(e.target.value);
+                  setCurrentPage(1); // Reset pagination when filter changes
+                }}
               >
                 <option value="All Status">All Status</option>
                 <option value="Pending">Pending</option>
                 <option value="In Progress">In Progress</option>
-                <option value="Done">Done</option>
+                <option value="Done">Completed</option>
               </select>
             </div>
-          </div>
-
-          {/* Assignments Grid */}
-          <div className="assignments-grid">
-            {currentAssignments.map((assignment, index) => (
-              <div key={index} className="assignment-card">
-                <div className="card-header">
-                  <span className={`status-badge ${assignment.status.toLowerCase()}`}>
-                    {assignment.status}
-                  </span>
-                  <span className="due-date">Due: {assignment.dueDate}</span>
-                </div>
-                <div className="card-content">
-                  <h3>{assignment.title}</h3>
-                  <p className="course-name">{assignment.course}</p>
-                </div>
-                <div className="card-footer">
-                  {assignment.submitted ? (
-                    <span className="submitted-text">
-                      <i className="fas fa-check-circle"></i> Submitted
-                    </span>
-                  ) : (
-                    <button className="upload-button">
-                      <i className="fas fa-upload"></i> Submit
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <div className="pagination">
-            <button 
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="page-button"
-            >
-              <i className="fas fa-chevron-left"></i>
-            </button>
-            {[...Array(totalPages)].map((_, i) => (
-              <button
-                key={i + 1}
-                onClick={() => paginate(i + 1)}
-                className={`page-button ${currentPage === i + 1 ? 'active' : ''}`}
+            <div className="filter-row">
+              <select 
+                value={selectedCourse}
+                onChange={(e) => {
+                  setSelectedCourse(e.target.value);
+                  setCurrentPage(1); // Reset pagination when filter changes
+                }}
               >
-                {i + 1}
-              </button>
-            ))}
-            <button 
-              onClick={() => paginate(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="page-button"
-            >
-              <i className="fas fa-chevron-right"></i>
-            </button>
-          </div>
-        </div>
-        
-        {/* Right Column */}
-        <div className="assignments-right">
-          {/* Overview Section */}
-          <div className="overview-section">
-            <h2>Assignment Overview</h2>
-            <div className="overview-stats">
-              <div className="overview-stat">
-                <span className="stat-label">Total Assignments</span>
-                <span className="stat-value">{assignments.length}</span>
-              </div>
-              <div className="overview-stat">
-                <span className="stat-label">Submitted</span>
-                <span className="stat-value">
-                  {assignments.filter(a => a.submitted).length}
-                </span>
-              </div>
-              <div className="overview-stat">
-                <span className="stat-label">Success Rate</span>
-                <span className="stat-value">
-                  {Math.round((assignments.filter(a => a.submitted).length / assignments.length) * 100)}%
-                </span>
-              </div>
+                {coursesList.map((course, index) => (
+                  <option key={index} value={course}>{course}</option>
+                ))}
+              </select>
+            </div>
+            <div className="filter-row">
+              <input 
+                type="text"
+                placeholder="Search assignments..."
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1); // Reset pagination when search changes
+                }}
+              />
             </div>
           </div>
-
+          
           {/* Upcoming Deadlines */}
-          <div className="deadlines-card">
-            <h3>
-              <i className="fas fa-calendar-alt"></i>
-              Upcoming Deadlines
-            </h3>
-            <div className="deadline-list">
-              {upcomingDeadlines.map((assignment, index) => (
-                <div key={index} className="deadline-item">
-                  <div className="deadline-content">
-                    <h4>{assignment.title}</h4>
-                    <p>{assignment.course}</p>
+          <div className="upcoming-deadlines">
+            <h3>Upcoming Deadlines</h3>
+            {upcomingDeadlines.length > 0 ? (
+              <div className="deadlines-list">
+                {upcomingDeadlines.map((assignment, index) => (
+                  <div 
+                    key={index} 
+                    className="deadline-item"
+                    onClick={() => handleAssignmentClick(assignment)}
+                  >
+                    <div className="deadline-icon">
+                      <i className="fas fa-calendar-alt"></i>
+                    </div>
+                    <div className="deadline-info">
+                      <h4>{assignment.title}</h4>
+                      <p className="course-name">{assignment.course}</p>
+                      <p className="due-date">Due: {assignment.dueDate}</p>
+                    </div>
                   </div>
-                  <div className="deadline-date">
-                    <span className="date">{assignment.dueDate}</span>
-                    <span className={`status-dot ${assignment.status.toLowerCase()}`}></span>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <p className="no-deadlines">No upcoming deadlines!</p>
+            )}
           </div>
-
+          
           {/* Course Progress */}
-          <div className="course-progress-card">
-            <h3>
-              <i className="fas fa-book"></i>
-              Course Progress
-            </h3>
+          <div className="course-progress">
+            <h3>Course Progress</h3>
             <div className="progress-list">
-              {courses.slice(1).map((course, index) => {
+              {coursesList.slice(1).map((course, index) => {
                 const courseAssignments = assignments.filter(a => a.course === course);
-                const completed = courseAssignments.filter(a => a.submitted).length;
+                const completed = courseAssignments.filter(a => a.status === 'Done').length;
                 const total = courseAssignments.length;
                 const progress = total ? Math.round((completed / total) * 100) : 0;
                 
@@ -304,7 +279,159 @@ const Assignments = () => {
             </div>
           </div>
         </div>
+
+        {/* Right Column */}
+        <div className="assignments-right">
+          <div className="assignments-list-section">
+            <div className="section-header">
+              <h2>Your Assignments</h2>
+              <div className="pagination-container">
+                <div className="pagination">
+                  {currentPage > 1 && (
+                    <button
+                      onClick={() => paginate(currentPage - 1)}
+                      className="pagination-arrow"
+                    >
+                      <i className="fas fa-chevron-left"></i>
+                    </button>
+                  )}
+                  
+                  {Array.from({ length: totalPages }, (_, i) => {
+                    // On mobile, show limited page numbers
+                    const pageNumber = i + 1;
+                    const isCurrentPage = currentPage === pageNumber;
+                    const isFirstPage = pageNumber === 1;
+                    const isLastPage = pageNumber === totalPages;
+                    const isWithinRange = Math.abs(pageNumber - currentPage) < 2;
+                    
+                    if (isCurrentPage || isFirstPage || isLastPage || isWithinRange) {
+                      return (
+                        <button
+                          key={i}
+                          onClick={() => paginate(pageNumber)}
+                          className={isCurrentPage ? 'active' : ''}
+                        >
+                          {pageNumber}
+                        </button>
+                      );
+                    } else if (pageNumber === currentPage + 2 || pageNumber === currentPage - 2) {
+                      return <span key={i} className="pagination-dots">...</span>;
+                    }
+                    return null;
+                  })}
+                  
+                  {currentPage < totalPages && (
+                    <button
+                      onClick={() => paginate(currentPage + 1)}
+                      className="pagination-arrow"
+                    >
+                      <i className="fas fa-chevron-right"></i>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="assignments-grid">
+              {currentAssignments.length > 0 ? (
+                currentAssignments.map((assignment, index) => (
+                  <div 
+                    key={index} 
+                    className="assignment-card"
+                    onClick={() => handleAssignmentClick(assignment)}
+                  >
+                    <div className="card-header">
+                      <span className={`status-badge ${assignment.status.toLowerCase().replace(' ', '-')}`}>
+                        {assignment.status}
+                      </span>
+                      <span className="due-date">Due: {assignment.dueDate}</span>
+                    </div>
+                    <div className="card-content">
+                      <h3>{assignment.title}</h3>
+                      <p className="course-name">{assignment.course}</p>
+                    </div>
+                    <div className="card-footer">
+                      {assignment.submitted ? (
+                        <div className="submitted-status">
+                          <i className="fas fa-check-circle"></i>
+                          <span>Submitted</span>
+                        </div>
+                      ) : (
+                        <button 
+                          className="submit-btn"
+                          onClick={(e) => handleSubmitClick(e, assignment)}
+                        >
+                          Submit Assignment
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="no-assignments-message">
+                  <i className="fas fa-search"></i>
+                  <p>No assignments match your filter criteria</p>
+                  <button 
+                    className="reset-filter-btn"
+                    onClick={() => {
+                      setSearchTerm('');
+                      setSelectedStatus('All Status');
+                      setSelectedCourse('All Courses');
+                    }}
+                  >
+                    Reset Filters
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Submit Assignment Modal */}
+      {isSubmitModalOpen && selectedAssignment && (
+        <div className="modal-overlay" onClick={() => setIsSubmitModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Submit Assignment</h2>
+              <button className="close-button" onClick={() => setIsSubmitModalOpen(false)}>×</button>
+            </div>
+            <div className="modal-body">
+              <h3>{selectedAssignment.title}</h3>
+              <p className="course-name">{selectedAssignment.course}</p>
+              <p className="due-date">Due: {selectedAssignment.dueDate}</p>
+              
+              <div className="file-upload-area">
+                <p>Drag and drop your file here or</p>
+                <label className="file-upload-button">
+                  <span>Choose File</span>
+                  <input type="file" className="file-upload-input" />
+                </label>
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="comments">Comments (Optional)</label>
+                <textarea 
+                  id="comments" 
+                  placeholder="Add any comments for your instructor..."
+                ></textarea>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button 
+                className="cancel-button"
+                onClick={() => setIsSubmitModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button className="submit-assignment-button">
+                <i className="fas fa-paper-plane"></i>
+                Submit Assignment
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -9,16 +9,20 @@ import { RecordingsProvider } from './context/RecordingsContext';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Assignments from './pages/Assignments';
+import AssignmentDetail from './pages/AssignmentDetail';
+import AssignmentCreate from './pages/AssignmentCreate';
 import Notes from './pages/Notes';
 import Schedule from './pages/Schedule';
 import Recordings from './pages/Recordings';
 import Discussions from './pages/Discussions';
+import DiscussionDetail from './pages/DiscussionDetail';
 import Resources from './pages/Resources';
 import Downloads from './pages/Downloads';
 import Classes from './pages/Classes';
 import Courses from './pages/Courses';
 import CourseDetail from './pages/CourseDetail';
 import Settings from './pages/Settings';
+import Grades from './pages/Grades';
 import './App.css';
 
 const App = () => {
@@ -83,6 +87,30 @@ const App = () => {
                 <SignedIn>
                   <DashboardLayout>
                     <Assignments />
+                  </DashboardLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            } />
+            <Route path="/assignments/create" element={
+              <>
+                <SignedIn>
+                  <DashboardLayout>
+                    <AssignmentCreate />
+                  </DashboardLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            } />
+            <Route path="/assignments/:id" element={
+              <>
+                <SignedIn>
+                  <DashboardLayout>
+                    <AssignmentDetail />
                   </DashboardLayout>
                 </SignedIn>
                 <SignedOut>
@@ -198,11 +226,35 @@ const App = () => {
                 </SignedOut>
               </>
             } />
+            <Route path="/discussions/:id" element={
+              <>
+                <SignedIn>
+                  <DashboardLayout>
+                    <DiscussionDetail />
+                  </DashboardLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            } />
             <Route path="/resources" element={
               <>
                 <SignedIn>
                   <DashboardLayout>
                     <Resources />
+                  </DashboardLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            } />
+            <Route path="/grades" element={
+              <>
+                <SignedIn>
+                  <DashboardLayout>
+                    <Grades />
                   </DashboardLayout>
                 </SignedIn>
                 <SignedOut>

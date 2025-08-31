@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Notes.css'
 
 const Notes = () => {
   const [showAddForm, setShowAddForm] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [editingNote, setEditingNote] = useState(null)
+  const [viewingNote, setViewingNote] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [activeTag, setActiveTag] = useState('all')
+  const [allTags, setAllTags] = useState([])
   const [notes, setNotes] = useState([
     {
       id: 1,
@@ -105,16 +109,46 @@ const Notes = () => {
     document.body.removeChild(link)
   }
 
+  const handleViewNote = (note) => {
+    setViewingNote(note);
+  }
+  
+  const closeViewModal = () => {
+    setViewingNote(null);
+  }
+
+  // Extract all unique tags from notes
+  useEffect(() => {
+    const tags = new Set();
+    notes.forEach(note => {
+      note.tags.forEach(tag => tags.add(tag));
+    });
+    setAllTags(Array.from(tags).sort());
+    
+    // Simulate loading
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [notes]);
+
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }
     return new Date(dateString).toLocaleDateString('en-US', options)
   }
 
-  const filteredNotes = notes.filter(note => 
-    note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    note.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    note.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-  )
+  // Filter notes based on search term and active tag
+  const filteredNotes = notes.filter(note => {
+    // First filter by search term
+    const matchesSearch = note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      note.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      note.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    // Then filter by active tag if it's not 'all'
+    const matchesTag = activeTag === 'all' || note.tags.includes(activeTag);
+    
+    return matchesSearch && matchesTag;
+  })
 
   return (
     <div className="notes-container">
@@ -136,19 +170,67 @@ const Notes = () => {
         </button>
       </div>
 
-      {/* Search Bar */}
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search notes by title, content, or tags..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+      {/* Search and Filter Bar */}
+      <div className="notes-controls">
+        <div className="search-bar">
+          <i className="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="Search notes by title, content, or tags..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        {/* Tag Filter */}
+        <div className="tag-filter">
+          <div className="filter-label">Filter by tag:</div>
+          <div className="filter-options">
+            <button 
+              className={`filter-btn ${activeTag === 'all' ? 'active' : ''}`}
+              onClick={() => setActiveTag('all')}
+            >
+              All
+            </button>
+            {allTags.map(tag => (
+              <button 
+                key={tag} 
+                className={`filter-btn ${activeTag === tag ? 'active' : ''}`}
+                onClick={() => setActiveTag(tag)}
+              >
+                #{tag}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Notes Grid */}
-      <div className="notes-grid">
-        {filteredNotes.map(note => (
+      {/* Loading State */}
+      {isLoading ? (
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading your notes...</p>
+        </div>
+      ) : filteredNotes.length === 0 ? (
+        <div className="empty-state">
+          <i className="fas fa-sticky-note empty-icon"></i>
+          <h3>No notes found</h3>
+          <p>{searchTerm || activeTag !== 'all' ? 'Try a different search term or filter.' : 'Create your first note to get started.'}</p>
+          <button 
+            className="add-note-btn-empty"
+            onClick={() => {
+              setShowAddForm(true);
+              setEditingNote(null);
+              setNewNote({ title: '', content: '', tags: '' });
+            }}
+          >
+            <i className="fas fa-plus"></i> Add New Note
+          </button>
+        </div>
+      ) : (
+        /* Notes Grid */
+        <div className="notes-grid">
+          {filteredNotes.map(note => (
           <div key={note.id} className="note-card">
             <h3>{note.title}</h3>
             <p className="note-preview">{note.content}</p>
@@ -173,7 +255,10 @@ const Notes = () => {
               )}
             </div>
             <div className="note-actions">
-              <button className="view-btn">
+              <button 
+                className="view-btn"
+                onClick={() => handleViewNote(note)}
+              >
                 <i className="fas fa-eye"></i> View
               </button>
               <button 
@@ -192,7 +277,76 @@ const Notes = () => {
           </div>
         ))}
       </div>
+      )}
+      
 
+      {/* View Note Modal */}
+      {viewingNote && (
+        <div className="modal-overlay">
+          <div className="modal view-modal">
+            <div className="modal-header">
+              <h2>{viewingNote.title}</h2>
+              <button className="close-btn" onClick={closeViewModal}>×</button>
+            </div>
+            <div className="view-content">
+              <pre className="note-content">{viewingNote.content}</pre>
+              
+              <div className="note-details">
+                <div className="detail-section">
+                  <h4>Tags</h4>
+                  <div className="note-tags">
+                    {viewingNote.tags.map((tag, index) => (
+                      <span key={index} className="tag">#{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="detail-section">
+                  <h4>Created</h4>
+                  <div>{formatDate(viewingNote.createdAt)}</div>
+                </div>
+                
+                <div className="detail-section">
+                  <h4>Last Updated</h4>
+                  <div>{formatDate(viewingNote.updatedAt)}</div>
+                </div>
+                
+                {viewingNote.attachment && (
+                  <div className="detail-section">
+                    <h4>Attachment</h4>
+                    <div className="view-attachment">
+                      <i className="fas fa-paperclip"></i>
+                      <span>{viewingNote.attachment.name}</span>
+                      <button 
+                        className="download-btn"
+                        onClick={() => handleDownloadAttachment(viewingNote.attachment)}
+                      >
+                        <i className="fas fa-download"></i> Download
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <div className="view-actions">
+                <button 
+                  className="edit-btn"
+                  onClick={() => {
+                    handleEditNote(viewingNote);
+                    closeViewModal();
+                  }}
+                >
+                  <i className="fas fa-edit"></i> Edit Note
+                </button>
+                <button className="close-view-btn" onClick={closeViewModal}>
+                  <i className="fas fa-times"></i> Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Add/Edit Note Modal */}
       {showAddForm && (
         <div className="modal-overlay">

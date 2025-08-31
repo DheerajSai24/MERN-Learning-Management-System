@@ -11,7 +11,7 @@
   flex-direction: column;
   z-index: 1000;
   transition: transform 0.3s ease, width 0.3s ease;
-  overflow-y: auto;
+  overflow-y: hidden; /* Changed from auto to hidden to remove scrollbar */
 }
 
 .sidebar-logo {
@@ -22,20 +22,27 @@
   text-align: center;
 }
 
+.sidebar nav {
+  flex: 1;
+  max-height: calc(100vh - 100px); /* Allow some space for logo */
+  display: flex;
+  flex-direction: column;
+}
+
 .sidebar ul {
   list-style: none;
   padding: 0;
 }
 
 .sidebar li {
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem; /* Reduced from 1.2rem to fit more items without scrolling */
 }
 
 .sidebar a {
   color: #555;
   text-decoration: none;
   font-size: 1.05rem;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1rem; /* Reduced vertical padding slightly */
   border-radius: 6px;
   display: block;
   transition: background 0.2s, color 0.2s;
@@ -62,6 +69,7 @@
   .sidebar {
     transform: translateX(-100%);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
   }
   
   .sidebar.open {
@@ -70,6 +78,10 @@
   
   .sidebar-overlay {
     display: block;
+  }
+  
+  .sidebar nav {
+    max-height: calc(100vh - 80px); /* Smaller space for logo on mobile */
   }
 }
 
