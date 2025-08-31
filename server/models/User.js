@@ -29,6 +29,56 @@ const userSchema = new mongoose.Schema({
         bio: String,
         phone: String
     },
+    settings: {
+        twoFactorEnabled: {
+            type: Boolean,
+            default: false
+        },
+        connectedAccounts: {
+            google: {
+                type: Boolean,
+                default: false
+            },
+            github: {
+                type: Boolean,
+                default: false
+            }
+        },
+        notifications: {
+            courseUpdates: {
+                type: Boolean,
+                default: true
+            },
+            assignmentReminders: {
+                type: Boolean,
+                default: true
+            },
+            discussionReplies: {
+                type: Boolean,
+                default: false
+            },
+            promotionalEmails: {
+                type: Boolean,
+                default: false
+            }
+        },
+        display: {
+            theme: {
+                type: String,
+                enum: ['light', 'dark'],
+                default: 'light'
+            },
+            fontSize: {
+                type: String,
+                enum: ['small', 'medium', 'large'],
+                default: 'medium'
+            }
+        },
+        language: {
+            type: String,
+            default: 'English'
+        }
+    },
     enrolledCourses: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Course'
