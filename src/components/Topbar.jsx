@@ -1,3 +1,6 @@
+        <div className="search-container">
+          <input type="text" placeholder="Search..." className="search-input" />
+        </div>
 import React from 'react';
 import './Topbar.css';
 import { UserButton, SignedIn } from './ClerkAuth';

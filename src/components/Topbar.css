@@ -26,6 +26,18 @@
   border-radius: 20px;
   border: 1px solid #ddd;
   font-size: 1rem;
+  background: #fff;
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.search-input::-webkit-search-decoration,
+.search-input::-webkit-search-cancel-button,
+.search-input::-webkit-search-results-button,
+.search-input::-webkit-search-results-decoration {
+  display: none;
 }
 
 .profile-dropdown {
