@@ -683,13 +683,19 @@
   }
   .new-assignment-btn {
     width: 100%;
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 10px;
+    font-size: 1.1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 2px 8px rgba(92,107,192,0.12);
+    gap: 0.5rem;
+  }
+  .new-assignment-btn i {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
   }
   .assignments-header h1 {
     font-size: 1.8rem;
